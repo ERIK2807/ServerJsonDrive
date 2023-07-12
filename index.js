@@ -57,6 +57,6 @@ const server = createServer(async (req, res) => {
 // server.on('request', corsMiddleware);
 
 // Iniciar el servidor en el puerto 8080
-server.listen(8080, () => {
+server.listen(process.env.PORT||8080, () => {
   console.log('Servidor en ejecución en el puerto 8080');
 });
