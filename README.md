@@ -1,0 +1,1 @@
+Usar Drive como un servidor, en este caso se utiliza un archivo plano como base de datos, el cual tendrá información de ciertos productos, de esta manera se puede simulalr y trabjar similar como sí se tratara de una DB de mongoDB
