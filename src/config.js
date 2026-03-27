@@ -80,7 +80,7 @@ export const config = {
   adminPasswordHash: requerirEnv('ADMIN_PASSWORD_HASH'),
   sessionSecret: requerirEnv('SESSION_SECRET'),
   fileId: process.env.FILE_ID || '1JKSJUykO-eQXi85B2F_LwleLDLtA23e-',
-  //credentialsFile: process.env.CREDENTIALS_FILE || './credenciales.json',
+  credentialsFile: process.env.CREDENTIALS_FILE || './credenciales.json',
   googleServiceAccountJson: process.env.GOOGLE_SERVICE_ACCOUNT_JSON || '',
   googleServiceAccountJsonBase64: process.env.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 || '',
   corsOrigins: parsearLista(process.env.CORS_ORIGIN, [
