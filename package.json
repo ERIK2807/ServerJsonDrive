@@ -1,18 +1,17 @@
 {
   "name": "conectardrive",
-  "version": "1.0.0",
-  "description": "Conectar con Drive",
+  "version": "2.0.0",
+  "description": "Backend Node para catalogo publico y panel admin",
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "hash-password": "node scripts/hash-password.js"
   },
   "author": "Erik Fabian V",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
     "googleapis": "^120.0.0",
     "nodemon": "^2.0.22"
   }

@@ -1,3 +1,9 @@
-
-backup/
 node_modules/
+backup/
+.vercel/
+.env
+credenciales.json
+public/
+controllers/
+models/
+routes/
