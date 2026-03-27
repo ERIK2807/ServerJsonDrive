@@ -1,3 +1,4 @@
+import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { google } from 'googleapis'
@@ -5,13 +6,44 @@ import { config } from '../config.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-const credencialesPath = path.resolve(__dirname, '../../', config.credentialsFile)
+const credencialesPath = path.resolve(__dirname, '../../', config.credentialsFile)  // para leer el credenciales.json localmente
 
-const auth = new google.auth.GoogleAuth({
-  keyFile: credencialesPath,
-  scopes: ['https://www.googleapis.com/auth/drive'],
-})
+function leerCredencialesDesdeEnv() {
+  if (config.googleServiceAccountJsonBase64) {
+    const json = Buffer.from(config.googleServiceAccountJsonBase64, 'base64').toString('utf8')
+    return JSON.parse(json)
+  }
 
+  if (config.googleServiceAccountJson) {
+    return JSON.parse(config.googleServiceAccountJson)
+  }
+
+  return null
+}
+
+function crearGoogleAuth() {
+  const credentials = leerCredencialesDesdeEnv()
+
+  if (credentials) {
+    return new google.auth.GoogleAuth({
+      credentials,
+      scopes: ['https://www.googleapis.com/auth/drive'],
+    })
+  }
+
+  if (fs.existsSync(credencialesPath)) {
+    return new google.auth.GoogleAuth({
+      keyFile: credencialesPath,
+      scopes: ['https://www.googleapis.com/auth/drive'],
+    })
+  }
+
+  throw new Error(
+    'No se encontraron credenciales de Google. Define GOOGLE_SERVICE_ACCOUNT_JSON_BASE64, GOOGLE_SERVICE_ACCOUNT_JSON o agrega credenciales.json localmente.',
+  )
+}
+
+const auth = crearGoogleAuth()
 const drive = google.drive({
   version: 'v3',
   auth,
